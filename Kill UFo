@@ -1,0 +1,204 @@
+import java.awt.*;
+import java.util.*;
+import java.awt.event.*; 
+
+
+class KillUfo extends Canvas {
+
+	
+		// private  int	X_START = 20;				
+		// private  int	Y_START = 20;
+		private static final int	LEN_UFO = 50;
+		private static final int	WID_UFO = 20;
+		private int x_vel = 10;	
+		private int accelration = 3;	
+		private int y_vel = 15;	
+		
+		
+		
+		private static KillUfo ufo;									
+		private static Frame f1;
+		
+
+	
+		KillUfo () {
+			setSize(80,80);
+			setBackground(Color.white);
+			 
+			
+		}
+
+		public void paint(Graphics g) {
+
+			g.drawRect(x_vel, y_vel, LEN_UFO, WID_UFO);
+			g.fillRect(x_vel, y_vel, LEN_UFO, WID_UFO);
+			
+		}	
+		
+		
+		private void moveright() {
+				
+				x_vel += accelration;
+				
+				ufo.move(x_vel,y_vel);
+				
+				System.out.println("value of y" +y_vel);			
+				System.out.println("value of y co" +ufo.getY());
+				System.out.println("value of x" +x_vel);
+				System.out.println("value of x co" +ufo.getX());
+				
+			}
+			
+		private void nextline() {
+				y_vel += 20;
+				ufo.move(x_vel,y_vel);
+			}
+			
+			
+			
+		private void moveleft() {
+				
+				x_vel -= accelration;
+				
+				ufo.move(x_vel,y_vel);
+				
+				System.out.println("value of y" +y_vel);			
+				System.out.println("value of y co" +ufo.getY());
+				System.out.println("value of x" +x_vel);
+				System.out.println("value of x co" +ufo.getX());
+				
+			}
+			
+			
+			
+			
+		public static void main(String args[])	{
+		
+			f1 = new Frame ();
+			f1.setSize(500,500);
+			f1.setVisible(true);
+			// addMouseListener(this);
+			
+			ufo = new KillUfo();
+		 	Bullet b2 = new Bullet();
+			f1.add(b2);
+			b2.firebullet(b2);
+			
+			Bullet b1 = new Bullet();
+			
+			ufo = new KillUfo();
+			f1.add(ufo);
+			f1.add(b1);
+			
+			
+			
+			
+					 while (ufo.getY() < (f1.getHeight() - LEN_UFO))	{
+						
+						
+								 // for right movement
+								
+							 while (ufo.getX() < (f1.getWidth() - 2 * LEN_UFO))	{
+								
+								 ufo.moveright();
+								
+								try {
+    							Thread.sleep(2);                 //1000 milliseconds is one second.
+								} 
+								catch(InterruptedException ex) {
+    							Thread.currentThread().interrupt();
+								}
+								
+								
+							}
+						
+						
+								ufo.nextline();
+								
+								
+								
+							 // for Left movement
+								
+							 while(ufo.getX() > 10)	{
+								
+								 ufo.moveleft();
+								
+								try {
+    							Thread.sleep(2);                 //1000 milliseconds is one second.
+								} 
+								catch(InterruptedException ex) {
+    							Thread.currentThread().interrupt();
+								}
+								
+								
+							}
+						
+						
+							ufo.nextline();
+						
+						
+						
+						
+						
+					 }
+					 				 		
+		}
+						
+			
+	
+	}	
+	
+class Bullet extends Canvas implements MouseListener {
+	
+	private int x_speed = 250;
+	private int y_speed = 455;
+	
+	// private Bullet b2;
+	
+	Bullet() {
+		setSize(20,20);
+		setBackground(Color.white);
+		addMouseListener(this);
+	}
+	
+	public void paint(Graphics g) {
+
+			g.drawRect(x_speed,y_speed,3,3);
+			g.fillRect(x_speed,y_speed,3,3);
+	}
+
+
+public void mouseEntered (MouseEvent me) {} 
+			public void mousePressed (MouseEvent me) {} 
+			public void mouseReleased (MouseEvent me) {}  
+			public void mouseExited (MouseEvent me) {}  
+			
+			public void mouseClicked (MouseEvent me) {
+		
+				// firebullet();
+				
+			}
+			
+			public void firebullet(Bullet b3) {
+				
+				 while(b3.getY() > 10) {
+					 y_speed += 3;
+					 b3.move(x_speed,y_speed);
+					try {
+    							Thread.sleep(2);                 //1000 milliseconds is one second.
+								} 
+								catch(InterruptedException ex) {
+    							Thread.currentThread().interrupt();
+								}
+				 }
+				
+			}
+			
+}
+
+
+	
+	
+	 
+
+
